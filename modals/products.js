@@ -8,6 +8,12 @@ var ProductSchema = new mongoose.Schema({
         minlength: 1,
         maxLength: 200
     },
+    brand: {
+        type: String,
+        trim: true,
+        minlength: 1,
+        maxLength: 200
+    },
     price: {
         type: String,
         trim: true,
@@ -88,7 +94,7 @@ var ProductSchema = new mongoose.Schema({
 ProductSchema.methods.toJSON = function() {
   	var product = this;
   	var productObject = product.toObject();
-  	return _.pick(productObject, ["_id", "productName", "category", "subCategory", "subSubCategory", "discount", "productDesc", "productSummary", "thumbnail", "coverImages", "sizeAvailable", "status", "price"]);
+  	return _.pick(productObject, ["_id", "productName", "brand", "category", "subCategory", "subSubCategory", "discount", "productDesc", "productSummary", "thumbnail", "coverImages", "sizeAvailable", "status", "price"]);
 };
 
 var Product = mongoose.model('Product', ProductSchema);
