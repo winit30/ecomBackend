@@ -3,6 +3,7 @@ const fs = require("fs");
 const multer  = require("multer");
 const path = require("path");
 
+const {authenticate} = require('./../middleware/authenticate');
 const {Product} = require("./../modals/products");
 
 const storage = multer.diskStorage({
@@ -36,7 +37,7 @@ const uploadCover = multer({
     fileFilter: (req, file, cb) =>  checkFileType(file, cb)
 }).array("coverImages", 3);
 
-Router.post("/uploadProductThumbnail", (req, res) => {
+Router.post("/uploadProductThumbnail", authenticate, (req, res) => {
     uploadThumbnail(req, res, (error) => {
         if (error) {
             res.send(error);
@@ -50,7 +51,7 @@ Router.post("/uploadProductThumbnail", (req, res) => {
     });
 });
 
-Router.post("/uploadCoverImages", (req, res) => {
+Router.post("/uploadCoverImages", authenticate, (req, res) => {
     uploadCover(req, res, (error) => {
         if (error) {
             res.status(500).send(error);
@@ -64,7 +65,7 @@ Router.post("/uploadCoverImages", (req, res) => {
     });
 });
 
-Router.post("/createProduct", (req, res) => {
+Router.post("/createProduct", authenticate, (req, res) => {
     const body = req.body;
     var product = new Product(body);
     product.save().then(p => {
@@ -75,7 +76,7 @@ Router.post("/createProduct", (req, res) => {
     });
 });
 
-Router.get("/getProducts", (req, res) => {
+Router.get("/getProducts", authenticate, (req, res) => {
     Product.find({}).then((products) => {
         res.send(products)
     }).catch(error => {
@@ -83,7 +84,7 @@ Router.get("/getProducts", (req, res) => {
     })
 });
 
-Router.get("/getProductDetails/:id", (req, res) => {
+Router.get("/getProductDetails/:id", authenticate, (req, res) => {
     Product.find({_id: req.params.id}).then((products) => {
         res.send(products[0])
     }).catch(error => {
@@ -91,7 +92,7 @@ Router.get("/getProductDetails/:id", (req, res) => {
     })
 });
 
-Router.delete("/deleteProduct/:id", (req, res) => {
+Router.delete("/deleteProduct/:id", authenticate, (req, res) => {
     Product.find({_id: req.params.id}).then(res => {
         const prodcut = res
         if(prodcut) {
@@ -109,7 +110,7 @@ Router.delete("/deleteProduct/:id", (req, res) => {
     });
 });
 
-Router.put("/updateProduct/:id", (req, res) => {
+Router.put("/updateProduct/:id", authenticate, (req, res) => {
     Product.update({"_id": req.params.id},  {$set:req.body}, {new: true}).then((r) => {
         res.send(r)
     }).catch(error => {
