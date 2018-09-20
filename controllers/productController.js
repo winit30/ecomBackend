@@ -76,7 +76,7 @@ Router.post("/createProduct", authenticate, (req, res) => {
     });
 });
 
-Router.get("/getProducts", authenticate, (req, res) => {
+Router.get("/getProducts", (req, res) => {
     Product.find({}).then((products) => {
         res.send(products)
     }).catch(error => {
@@ -84,7 +84,7 @@ Router.get("/getProducts", authenticate, (req, res) => {
     })
 });
 
-Router.get("/getProductDetails/:id", authenticate, (req, res) => {
+Router.get("/getProductDetails/:id", (req, res) => {
     Product.find({_id: req.params.id}).then((products) => {
         res.send(products[0])
     }).catch(error => {

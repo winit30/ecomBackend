@@ -1,7 +1,9 @@
 const Router = require("express").Router();
+
+const {authenticate} = require('./../middleware/authenticate');
 const {Category} = require("./../modals/categories");
 
-Router.post("/createCategory", (req, res) => {
+Router.post("/createCategory", authenticate, (req, res) => {
     const body = req.body;
     var category = new Category(body);
     category.save().then((c) => {
@@ -19,7 +21,7 @@ Router.get("/getCategories", (req, res) => {
     })
 });
 
-Router.delete("/deleteAllCategories", (req, res) => {
+Router.delete("/deleteAllCategories", authenticate, (req, res) => {
     Category.remove({}).then((r) => {
         console.log(r);
         res.send(r)

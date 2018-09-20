@@ -9,7 +9,24 @@ var UserSchema = new mongoose.Schema({
     type: String,
     trim: true,
     required: true,
-    minlength: 3
+    minlength: 3,
+    validate: {
+      validator: (value) => {
+          return validator.isAlpha(value);
+      },
+      message: "{VALUE} is not a valid name"
+    }
+  },
+  phone: {
+    type: String,
+    trim: true,
+    unique: true,
+    required: true,
+    minlength: 10,
+    validate: {
+      validator: validator.isNumeric,
+      message: "{VALUE} is not a valid number"
+    }
   },
   email: {
     type: String,
@@ -41,12 +58,12 @@ var UserSchema = new mongoose.Schema({
       }
     }
   ]
-} , {usePushEach: true});
+});
 
 UserSchema.methods.toJSON = function() {
 	var user = this;
 	var userObject = user.toObject();
-	return _.pick(userObject, ['_id' ,'name', 'email']);
+	return _.pick(userObject, ['_id' , "name", "email", "phone"]);
 };
 
 UserSchema.methods.generateAuthToken = function() {
@@ -122,6 +139,6 @@ UserSchema.pre('save', function(next){
   }
 });
 
-var User = mongoose.model('User', UserSchema);
+var User = mongoose.model('EcomUser', UserSchema);
 
 module.exports = {User};

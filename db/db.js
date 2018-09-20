@@ -5,4 +5,7 @@ mongodb_url = "mongodb://vineet30:Buntymis30!@ds141889.mlab.com:41889/modulegene
 
 mongoose.connect(mongodb_url, {useCreateIndex: true,
   useNewUrlParser: true});
+
+mongoose.set('useCreateIndex', true)
+  
 module.exports = {mongoose};

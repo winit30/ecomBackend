@@ -8,7 +8,7 @@ const categoryController = require("./controllers/categoryController");
 const productController = require("./controllers/productController");
 const userController = require("./controllers/userController");
 
-app.use(bodyParser.urlencoded());
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
 app.use((req, res, next) => {
