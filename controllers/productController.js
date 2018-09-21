@@ -96,11 +96,17 @@ Router.delete("/deleteProduct/:id", authenticate, (req, res) => {
     Product.find({_id: req.params.id}).then(res => {
         const prodcut = res
         if(prodcut) {
-            fs.unlinkSync(prodcut[0].thumbnail);
-            prodcut[0].coverImages.forEach(image => {
-                fs.unlinkSync(image);
-            });
-            return Product.remove({"_id": req.params.id});
+            try {
+                fs.unlinkSync(prodcut[0].thumbnail);
+                prodcut[0].coverImages.forEach(image => {
+                    fs.unlinkSync(image);
+                });
+                return Product.remove({"_id": req.params.id});
+            } catch (e) {
+                console.log(e);
+            } finally {
+                return Product.remove({"_id": req.params.id});
+            }
         }
     }).then((r) => {
         console.log(r);
