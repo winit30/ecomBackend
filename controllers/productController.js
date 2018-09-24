@@ -84,6 +84,15 @@ Router.get("/getProducts", (req, res) => {
     })
 });
 
+Router.post("/getProducts", (req, res) => {
+    const body = req.body;
+    Product.find(body).then((products) => {
+        res.send(products)
+    }).catch(error => {
+        res.status(500).send(error);
+    })
+});
+
 Router.get("/getProductDetails/:id", (req, res) => {
     Product.find({_id: req.params.id}).then((products) => {
         res.send(products[0])
