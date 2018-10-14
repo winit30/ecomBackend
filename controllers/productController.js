@@ -3,6 +3,8 @@ const fs = require("fs");
 const multer  = require("multer");
 const path = require("path");
 
+const sendEmail = require("./email");
+
 const {authenticate} = require('./../middleware/authenticate');
 const {Product} = require("./../modals/products");
 
@@ -132,5 +134,13 @@ Router.put("/updateProduct/:id", authenticate, (req, res) => {
         res.status(500).send(error);
     });
 });
+
+Router.post("/sendEmail", (req, res) => {
+  sendEmail((message) => {
+    res.send(message);
+  });
+});
+
+
 
 module.exports = Router;
