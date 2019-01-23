@@ -1,0 +1,27 @@
+.sidebar-container {
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    width: 250px;
+    background-color: #000000;
+}
+
+.sidebar-container ul {
+    list-style: none;
+    padding:16px 0 0 16px;
+    margin: 0;
+}
+
+.sidebar-container ul li {
+    padding: 8px;
+    font-size: 14px;
+}
+
+.sidebar-container ul li a {
+    color: #ffffff;
+}
+
+.left-gap-250 {
+    padding-left: 265px;
+}
