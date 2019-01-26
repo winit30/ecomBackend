@@ -1,8 +1,6 @@
-const XHR = new XMLHttpRequest(),
-origin = window.location.origin,
-rootView = document.getElementById('root');
+const XHR = new XMLHttpRequest();
 
-const setViews = (url) => {
+const getView = (url) => {
     return new Promise((resolve, reject) => {
         XHR.open('GET', url);
         XHR.send();
@@ -14,4 +12,8 @@ const setViews = (url) => {
             }
         };
     });
+}
+
+const getElementById = (id) => {
+    return document.getElementById(id);
 }
