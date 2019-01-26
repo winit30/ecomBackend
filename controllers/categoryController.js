@@ -13,6 +13,14 @@ Router.post("/createCategory", (req, res) => {
     });
 });
 
+Router.put('/updateCategory/:_id', (req, res) => {
+	Category.updateCategory(req.params._id, req.body).then((category) => {
+		  res.send(category);
+	}).catch((err) => {
+		  res.send(err);
+	});
+});
+
 Router.get("/getCategories", (req, res) => {
     Category.find({}).then((categories) => {
         res.send(categories)

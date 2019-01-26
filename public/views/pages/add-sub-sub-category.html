@@ -1,37 +1,23 @@
 <div id="addSubSubCategory">
     <div class="container left-gap-250">
         <div class="col m-5">
-            <form>
                 <div class="">
                 <div class="dropdown mb-3">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                     Select Category
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Category 1</a>
-                      <a class="dropdown-item" href="#">Category 2</a>
-                      <a class="dropdown-item" href="#">Category 3</a>
-                    </div>
-                  </div>
-                  <div class="dropdown mb-3">
-                    <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
-                     Select Sub Category
-                    </button>
-                    <div class="dropdown-menu">
-                      <a class="dropdown-item" href="#">Category 1</a>
-                      <a class="dropdown-item" href="#">Category 2</a>
-                      <a class="dropdown-item" href="#">Category 3</a>
-                    </div>
-                  </div>
+                  <select class="btn btn-primary dropdown-toggle" id="select-category">
+                  </select>
+                </div>
+                <div class="dropdown mb-3">
+                  <select class="btn btn-primary dropdown-toggle" id="select-sub-category">
+                  </select>
+                </div>
                 </div>
                 <div class="input-group mb-3">
                     <div class="input-group-prepend">
                       <span class="input-group-text">Sub Category Name Alias</span>
                     </div>
-                    <input type="text" class="form-control" placeholder="Sub Category Name Alias" id="usr" name="Sub Category Name Alias">
+                    <input type="text" class="form-control" placeholder="Sub Sub Category Name" id="sub-sub-category" name="Sub Sub Category Name">
                 </div>
-                <button type="submit" class="btn btn-primary">Add</button>
-              </form>
+                <button id="sub-sub-category-button" class="btn btn-primary">Add</button>
         </div>
     </div>
 </div>

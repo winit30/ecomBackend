@@ -20,7 +20,7 @@ const api = async (url, method, reqBody = null, headers = {}) => {
         const timerPromise = new Promise((resolve, reject) => {
             setTimeout(() => {
                 reject("Request timeout");
-            }, 5000);
+            }, 50000);
         });
 
         const response = await Promise.race([fetchPromise, timerPromise]);
