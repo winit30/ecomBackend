@@ -88,16 +88,61 @@ const AddSubSubCategoriesController = {
 
 const GetCategoriesController = {
     init: () => {
-        GetCategoriesController.getAllCategories();
+        this.table = getElementById("category-table").getElementsByTagName("tbody")[0];
+        this.deleteLink = document.createElement("button");
+        const deleteText = document.createTextNode("Delete");
+        this.editLink = document.createElement("button");
+        const editText = document.createTextNode("Edit");
+        this.editLink.appendChild(editText);
+        this.deleteLink.appendChild(deleteText);
+        GetCategoriesController.renderAllCategories();
     },
-    getAllCategories: async () => {
-        return await fetchApi("/categories/getCategories", "GET", 200);
+    renderAllCategories: async () => {
+        GetCategoriesController.refreshView();
+        const allCategories = await CategoryModal.getAllCategories();
+        allCategories.forEach((cat) => {
+            const newRow = this.table.insertRow(this.table.rows.length);
+            // Insert a cells
+            const cellOne  = newRow.insertCell(0);
+            const cellTwo  = newRow.insertCell(1);
+            const cellThree = newRow.insertCell(2);
+            // Append a text node to the cells
+            const textOne  = document.createTextNode(cat._id);
+            const textTwo  = document.createTextNode(cat.categoryName);
+            cellOne.appendChild(textOne);
+            cellTwo.appendChild(textTwo);
+            cellThree.appendChild(deleteLink);
+            const deleteButton = this.deleteLink;
+            deleteButton.id = cat._id;
+            cellThree.innerHTML = deleteButton.outerHTML;
+            const getDeleteButton = getElementById(cat._id);
+            getDeleteButton.onclick = ((catId) => {
+              return () => {
+                   GetCategoriesController.deleteCategory(catId);
+              };
+            })(cat._id);
+        });
+    },
+    refreshView: () => {
+        const rows = this.table.getElementsByTagName("tr");
+        if (rows.length > 0) {
+          for(let i = rows.length - 1; i >= 0; i--) {
+              this.table.deleteRow(i);
+          }
+        }
+    },
+    deleteCategory: async (catId) => {
+        await CategoryModal.deleteCategory(catId);
+        await GetCategoriesController.renderAllCategories();
     }
 }
 
 const CategoryModal = {
     init: () => {},
     getAllCategories: async () => {
-        return await GetCategoriesController.getAllCategories()
+        return await fetchApi("/categories/getCategories", "GET", 200);
+    },
+    deleteCategory: async (catId) => {
+        return await fetchApi("/categories/deleteCategory/"+catId, "DELETE", 200);
     }
 }
