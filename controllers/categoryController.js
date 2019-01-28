@@ -30,8 +30,7 @@ Router.get("/getCategories", (req, res) => {
 });
 
 Router.delete("/deleteCategory/:_id", (req, res) => {
-    Category.remove({_id: req.params._id}).then((r) => {
-        console.log(r);
+    Category.deleteOne({_id: req.params._id}).then((r) => {
         res.send(r)
     });
 });

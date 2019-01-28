@@ -65,7 +65,7 @@ CategorySchema.methods.toJSON = function() {
 
 CategorySchema.statics.updateCategory = function(_id, body) {
   const Category = this;
-  return Category.update({_id}, {$set:body}, {new: true});
+  return Category.updateOne({_id}, {$set:body}, {new: true});
 }
 
 var Category = mongoose.model('Category', CategorySchema);
