@@ -33,12 +33,6 @@ const uploadThumbnail = multer({
     fileFilter: (req, file, cb) =>  checkFileType(file, cb)
 }).single("thumbnail");
 
-const uploadCover = multer({
-    storage,
-    limits: {fileSize: 1000000},
-    fileFilter: (req, file, cb) =>  checkFileType(file, cb)
-}).array("coverImages", 3);
-
 Router.post("/uploadProductThumbnail", authenticate, (req, res) => {
     uploadThumbnail(req, res, (error) => {
         if (error) {
@@ -52,6 +46,12 @@ Router.post("/uploadProductThumbnail", authenticate, (req, res) => {
         }
     });
 });
+
+const uploadCover = multer({
+    storage,
+    limits: {fileSize: 1000000},
+    fileFilter: (req, file, cb) =>  checkFileType(file, cb)
+}).array("coverImages", 3);
 
 Router.post("/uploadCoverImages", authenticate, (req, res) => {
     uploadCover(req, res, (error) => {
@@ -67,7 +67,7 @@ Router.post("/uploadCoverImages", authenticate, (req, res) => {
     });
 });
 
-Router.post("/createProduct", authenticate, (req, res) => {
+Router.post("/createProduct", (req, res) => {
     const body = req.body;
     var product = new Product(body);
     product.save().then(p => {
@@ -127,8 +127,8 @@ Router.delete("/deleteProduct/:id", authenticate, (req, res) => {
     });
 });
 
-Router.put("/updateProduct/:id", authenticate, (req, res) => {
-    Product.update({"_id": req.params.id},  {$set:req.body}, {new: true}).then((r) => {
+Router.put("/updateProduct/:id", (req, res) => {
+    Product.updateOne({"_id": req.params.id},  {$set:req.body}, {new: true}).then((r) => {
         res.send(r)
     }).catch(error => {
         res.status(500).send(error);

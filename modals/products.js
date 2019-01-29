@@ -5,68 +5,52 @@ var ProductSchema = new mongoose.Schema({
     productName: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 200
     },
     brand: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 200
     },
     price: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 15
     },
     category: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 100
     },
     subCategory: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 100
     },
     subSubCategory: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 100
     },
     discount: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 3
     },
     productDesc: {
         type: String,
         trim: true,
-        minlength: 1,
         maxLength: 100
     },
     productSummary: {
         type: String,
         trim: true,
-        minlength: 1,
-        maxLength: 100
-    },
-    productSummary: {
-        type: String,
-        trim: true,
-        minlength: 1,
         maxLength: 100
     },
     thumbnail: {
         type: String,
         trim: true,
-        minlength: 1,
-        maxLength: 100
+        maxLength: 1000
     },
     status: {
         type: Boolean,
@@ -77,17 +61,14 @@ var ProductSchema = new mongoose.Schema({
             type: String,
             trim: true,
             minlength: 1,
-            maxLength: 400
+            maxLength: 1000
         }
     ],
-    sizeAvailable: [
-        {
-            type: String,
-            trim: true,
-            minlength: 1,
-            maxLength: 100
-        }
-    ]
+    sizeAvailable: {
+        type: String,
+        trim: true,
+        maxLength: 100
+    }
 
 } , {usePushEach: true});
 
